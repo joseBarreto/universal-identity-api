@@ -4,5 +4,49 @@
         <name>UniversalIdentity.Application</name>
     </assembly>
     <members>
+        <member name="T:UniversalIdentity.Application.Controllers.BaseController">
+            <summary>
+            Controller base
+            </summary>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.Execute(System.Func{System.Object})">
+            <summary>
+            Executa uma função garantindo o tratamento de erro
+            </summary>
+            <param name="func">função para execução</param>
+            <returns>
+            Status code 200 em caso de sucesso
+            Status code 500 em caso de falha
+            </returns>
+        </member>
+        <member name="T:UniversalIdentity.Application.Controllers.HomeController">
+            <summary>
+             Home
+            </summary>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.HomeController.Index">
+            <summary>
+            Ctr
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UniversalIdentity.Application.Controllers.PessoaController">
+            <summary>
+            Controller para gerencia as pessoas
+            </summary>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.#ctor(UniversalIdentity.Domain.Interfaces.IBaseService{UniversalIdentity.Domain.Entities.Pessoa})">
+            <summary>
+            Ctr
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.Create(UniversalIdentity.Domain.Entities.Pessoa)">
+            <summary>
+            Insere um novo registro
+            </summary>
+            <param name="pessoa">Modelo para inserir</param>
+            <returns>Id do obj</returns>
+        </member>
     </members>
 </doc>

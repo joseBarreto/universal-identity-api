@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\UniversalIdentity.Domain\UniversalIdentity.Domain.csproj" />
   </ItemGroup>
 
 </Project>

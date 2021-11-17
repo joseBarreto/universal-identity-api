@@ -9,7 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using UniversalIdentity.Domain.Entities;
+using UniversalIdentity.Domain.Interfaces;
 using UniversalIdentity.Infra.Data.Context;
+using UniversalIdentity.Infra.Data.Repository;
+using UniversalIdentity.Service.Services;
 
 namespace UniversalIdentity.Application
 {
@@ -28,10 +32,33 @@ namespace UniversalIdentity.Application
 
             services
                 .AddControllers()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);            
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services
                 .AddDbContext<UniversalIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UniversalIdentityContext")));
+
+            #region health checks
+            #endregion health checks
+
+            #region repository
+
+            services.AddScoped<IBaseRepository<Pessoa>, BaseRepository<Pessoa>>();
+            services.AddScoped<IBaseRepository<Login>, BaseRepository<Login>>();
+
+            #endregion repository
+
+            #region service
+
+            services.AddScoped<IBaseService<Pessoa>, BaseService<Pessoa>>();
+            services.AddScoped<IBaseService<Login>, BaseService<Login>>();
+
+            #endregion service
+
+            #region autoMapper
+            #endregion autoMapper
+
+            #region autenticação
+            #endregion autenticação
 
             #region swagger
             _ = services.AddSwaggerGen(c =>
@@ -85,9 +112,10 @@ namespace UniversalIdentity.Application
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UniversalIdentity.Application v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Universal Identity v1"));
 
             app.UseHttpsRedirection();
 

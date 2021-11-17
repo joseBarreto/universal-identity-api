@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="WeatherForecast.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <DocFileItem Remove="UniversalIdentity.Application.xml" />
   </ItemGroup>
 
@@ -40,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UniversalIdentity.Infra.Data\UniversalIdentity.Infra.Data.csproj" />
+    <ProjectReference Include="..\UniversalIdentity.Service\UniversalIdentity.Service.csproj" />
   </ItemGroup>
 
 </Project>
