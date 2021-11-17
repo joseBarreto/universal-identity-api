@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UniversalIdentity.Service
+﻿namespace UniversalIdentity.Service
 {
     public class Class1
     {
