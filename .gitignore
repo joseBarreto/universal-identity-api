@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/UniversalIdentity.Application/appsettings.json
+/UniversalIdentity.Application/appsettings.Development.json
