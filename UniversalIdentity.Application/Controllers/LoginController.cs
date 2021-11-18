@@ -39,7 +39,7 @@ namespace UniversalIdentity.Application.Controllers
         /// <param name="login">Modelo para inserir</param>
         /// <returns>Id do obj</returns>
 #if RELEASE
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
 #endif
         [AllowAnonymous]
         [SwaggerResponse(200, "Ok", typeof(Response<int>))]
