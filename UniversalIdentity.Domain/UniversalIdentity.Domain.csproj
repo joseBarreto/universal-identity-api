@@ -8,9 +8,4 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Settings\" />
-  </ItemGroup>
-
 </Project>

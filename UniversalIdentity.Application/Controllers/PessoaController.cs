@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using UniversalIdentity.Domain.Entities;
 using UniversalIdentity.Domain.Interfaces;
+using UniversalIdentity.Domain.Models;
 using UniversalIdentity.Domain.Wrappers;
 
 namespace UniversalIdentity.Application.Controllers
@@ -15,32 +16,43 @@ namespace UniversalIdentity.Application.Controllers
     [Route("[controller]")]
     public class PessoaController : BaseController
     {
-        private readonly IBaseService<Pessoa> _baseService;
+        private readonly ILoginService _baseService;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Ctr
         /// </summary>
         /// <param name="baseService"></param>
-        public PessoaController(IBaseService<Pessoa> baseService)
+        ///  <param name="mapper"></param>
+        public PessoaController(ILoginService baseService, IMapper mapper)
         {
             _baseService = baseService;
+            _mapper = mapper;
         }
+
 
         /// <summary>
-        /// Insere um novo registro
+        /// Retorna os dados do usuário autenticado
         /// </summary>
-        /// <param name="pessoa">Modelo para inserir</param>
-        /// <returns>Id do obj</returns>
-        [SwaggerResponse(200, "Ok", typeof(Response<int>))]
-        [SwaggerResponse(400, "Bad Request", typeof(string))]
-        [HttpPost]
-        public IActionResult Create([FromBody] Pessoa pessoa)
+        /// <returns></returns>
+        [SwaggerResponse(200, "Ok", typeof(Response<PessoaGetResponseModel>))]
+        [SwaggerResponse(401, "Unauthorized", typeof(string))]
+        [SwaggerResponse(404, "Bad Request", typeof(Response<string>))]
+        [SwaggerResponse(500, "Internal Server Error", typeof(Response<string>))]
+        [HttpGet()]
+        public IActionResult Get()
         {
-            if (pessoa == null)
-                return NotFound();
+            var userId = GetCurrentUserId();
 
-            return Execute(() => Response<int>.Create(_baseService.Add(pessoa).Id));
+            if (userId <= 0)
+                return BaseNotFound();
+
+            return Execute(() =>
+            {
+                var login = _baseService.GetWithIncludesByUsuarioId(userId);
+                var loginMapper = _mapper.Map<PessoaGetResponseModel>(login);
+                return Response<PessoaGetResponseModel>.Create(loginMapper);
+            });
         }
-
     }
 }

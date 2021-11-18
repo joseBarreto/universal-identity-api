@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversalIdentity.Infra.Data.Context;
 
 namespace UniversalIdentity.Infra.Data.Migrations
 {
     [DbContext(typeof(UniversalIdentityContext))]
-    partial class UniversalIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20211118160948_V3")]
+    partial class V3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

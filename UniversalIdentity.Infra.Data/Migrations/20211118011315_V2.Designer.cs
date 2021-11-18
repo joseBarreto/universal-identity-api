@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversalIdentity.Infra.Data.Context;
 
 namespace UniversalIdentity.Infra.Data.Migrations
 {
     [DbContext(typeof(UniversalIdentityContext))]
-    partial class UniversalIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20211118011315_V2")]
+    partial class V2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,14 +104,6 @@ namespace UniversalIdentity.Infra.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("STATUS");
-
-                    b.Property<double>("TotalAvaliacao")
-                        .HasColumnType("float")
-                        .HasColumnName("TOTAL_AVALIACAO");
-
-                    b.Property<int>("TotalHorasTrabalhadas")
-                        .HasColumnType("int")
-                        .HasColumnName("TOTAL_HORAS_TRABALHADAS");
 
                     b.HasKey("Id");
 

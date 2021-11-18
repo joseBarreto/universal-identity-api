@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversalIdentity.Infra.Data.Context;
 
 namespace UniversalIdentity.Infra.Data.Migrations
 {
     [DbContext(typeof(UniversalIdentityContext))]
-    partial class UniversalIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20211118005153_V1")]
+    partial class V1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,7 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnName("DT_ULTIMO_ACESSO");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("EMAIL");
 
                     b.Property<int>("PessoaId")
@@ -42,9 +42,7 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnName("PESSOA_ID");
 
                     b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("SENHA");
 
                     b.HasKey("Id");
@@ -89,6 +87,12 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("DOCUMENTO_TIPO");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("EMAIL");
+
                     b.Property<int>("Genero")
                         .HasColumnType("int")
                         .HasColumnName("GENERO");
@@ -99,17 +103,15 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("NOME");
 
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("SENHA");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("STATUS");
-
-                    b.Property<double>("TotalAvaliacao")
-                        .HasColumnType("float")
-                        .HasColumnName("TOTAL_AVALIACAO");
-
-                    b.Property<int>("TotalHorasTrabalhadas")
-                        .HasColumnType("int")
-                        .HasColumnName("TOTAL_HORAS_TRABALHADAS");
 
                     b.HasKey("Id");
 

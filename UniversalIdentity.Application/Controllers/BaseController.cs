@@ -34,15 +34,7 @@ namespace UniversalIdentity.Application.Controllers
             }
             catch (Exception ex)
             {
-                var response = new Response<string>
-                {
-                    Errors = new string[] {
-                        ex.ToString()
-                    },
-                    Message = "Falha interna no servidor."
-                };
-
-                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+                return BaseInternalServerError("Falha interna no servidor.", ex.ToString());
             }
         }
 
@@ -84,6 +76,70 @@ namespace UniversalIdentity.Application.Controllers
 
             modifiedUri = QueryHelpers.AddQueryString(modifiedUri, "pageSize", filter.PageSize.ToString());
             return new Uri(modifiedUri);
+        }
+
+        /// <summary>
+        /// Retorna 404 contendo um Response message
+        /// </summary>
+        /// <param name="message">Mensagem de retorno</param>
+        /// <param name="errors">Lista de erros</param>
+        /// <returns></returns>
+        internal NotFoundObjectResult BaseNotFound(string message = "Registro não encontrado", params string[] errors)
+        {
+            var response = new Response<string>
+            {
+                Message = message,
+                Errors = errors
+            };
+            return base.NotFound(response);
+        }
+
+        /// <summary>
+        /// Retorna 409 contendo um Response message
+        /// </summary>
+        /// <param name="message">Mensagem de retorno</param>
+        /// <param name="errors">Lista de erros</param>
+        /// <returns></returns>        
+        internal ConflictObjectResult BaseConflict(string message = "Registro já esta em uso", params string[] errors)
+        {
+            var response = new Response<string>
+            {
+                Message = message,
+                Errors = errors
+            };
+            return base.Conflict(response);
+        }
+
+        /// <summary>
+        /// Retorna 401 contendo um Response message
+        /// </summary>
+        /// <param name="message">Mensagem de retorno</param>
+        /// <param name="errors">Lista de erros</param>
+        /// <returns></returns>
+        internal UnauthorizedObjectResult BaseUnauthorized(string message = "Não autorizado", params string[] errors)
+        {
+            var response = new Response<string>
+            {
+                Message = message,
+                Errors = errors
+            };
+            return base.Unauthorized(response);
+        }
+
+        /// <summary>
+        /// Retorna 500 contendo um Response message
+        /// </summary>
+        /// <param name="message">Mensagem de retorno</param>
+        /// <param name="errors">Lista de erros</param>
+        /// <returns></returns>
+        internal ObjectResult BaseInternalServerError(string message = "Falha interna no servidor", params string[] errors)
+        {
+            var response = new Response<string>
+            {
+                Message = message,
+                Errors = errors
+            };
+            return StatusCode((int)HttpStatusCode.InternalServerError, response);
         }
     }
 }

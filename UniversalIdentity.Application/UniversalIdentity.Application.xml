@@ -19,6 +19,38 @@
             Status code 500 em caso de falha
             </returns>
         </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseNotFound(System.String,System.String[])">
+            <summary>
+            Retorna 404 contendo um Response message
+            </summary>
+            <param name="message">Mensagem de retorno</param>
+            <param name="errors">Lista de erros</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseConflict(System.String,System.String[])">
+            <summary>
+            Retorna 409 contendo um Response message
+            </summary>
+            <param name="message">Mensagem de retorno</param>
+            <param name="errors">Lista de erros</param>
+            <returns></returns>        
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseUnauthorized(System.String,System.String[])">
+            <summary>
+            Retorna 401 contendo um Response message
+            </summary>
+            <param name="message">Mensagem de retorno</param>
+            <param name="errors">Lista de erros</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseInternalServerError(System.String,System.String[])">
+            <summary>
+            Retorna 500 contendo um Response message
+            </summary>
+            <param name="message">Mensagem de retorno</param>
+            <param name="errors">Lista de erros</param>
+            <returns></returns>
+        </member>
         <member name="T:UniversalIdentity.Application.Controllers.HomeController">
             <summary>
              Home
@@ -30,23 +62,55 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:UniversalIdentity.Application.Controllers.LoginController">
+            <summary>
+            Gerencia os dados de login, como geração de Token
+            </summary>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.LoginController.#ctor(UniversalIdentity.Domain.Interfaces.ILoginService,AutoMapper.IMapper)">
+            <summary>
+            Ctr
+            </summary>
+            <param name="baseService"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.LoginController.Create(UniversalIdentity.Domain.Models.LoginCreateRequestModel)">
+            <summary>
+            Insere um novo registro
+            </summary>
+            <param name="login">Modelo para inserir</param>
+            <returns>Id do obj</returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.LoginController.Login(UniversalIdentity.Domain.Models.LoginPostRequestModel)">
+            <summary>
+            Gera um token
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.LoginController.ObterDadosPorToken">
+            <summary>
+            Retorna as Claims vinculadas no Token do Header
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:UniversalIdentity.Application.Controllers.PessoaController">
             <summary>
             Controller para gerencia as pessoas
             </summary>
         </member>
-        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.#ctor(UniversalIdentity.Domain.Interfaces.IBaseService{UniversalIdentity.Domain.Entities.Pessoa})">
+        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.#ctor(UniversalIdentity.Domain.Interfaces.ILoginService,AutoMapper.IMapper)">
             <summary>
             Ctr
             </summary>
             <param name="baseService"></param>
+             <param name="mapper"></param>
         </member>
-        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.Create(UniversalIdentity.Domain.Entities.Pessoa)">
+        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.Get">
             <summary>
-            Insere um novo registro
+            Retorna os dados do usuário autenticado
             </summary>
-            <param name="pessoa">Modelo para inserir</param>
-            <returns>Id do obj</returns>
+            <returns></returns>
         </member>
     </members>
 </doc>
