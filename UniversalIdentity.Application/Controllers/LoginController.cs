@@ -64,7 +64,6 @@ namespace UniversalIdentity.Application.Controllers
 
                 newLogin.Pessoa.DataCadastro =
                 newLogin.Pessoa.DataAtualizacao =
-                newLogin.Pessoa.DataNascimento =
                 newLogin.DataUltimoAcesso = System.DateTime.Now;
 
                 return Response<int>.Create(_baseService.Add(newLogin).Id);
