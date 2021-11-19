@@ -42,5 +42,11 @@ namespace UniversalIdentity.Domain.Models
         [StringLength(maximumLength: 20, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
         public string Senha { get; set; }
 
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [Display(Name = "Imagem do perfil em base64")]
+        [MinLength(1)]
+        public string ImagemPerfilBase64 { get; set; }
+
+
     }
 }

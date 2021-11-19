@@ -14,10 +14,10 @@ namespace UniversalIdentity.Domain.Enums
         CPF = 2,
 
         [Description("Carteira Nacional de Habilitação (CNH)")]
-        CNH = 2,
+        CNH = 3,
 
         [Description("Passaporte")]
-        Passaporte = 3,
+        Passaporte = 4,
     }
 }
 

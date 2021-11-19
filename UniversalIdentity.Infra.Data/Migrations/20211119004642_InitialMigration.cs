@@ -21,7 +21,12 @@ namespace UniversalIdentity.Infra.Data.Migrations
                     GENERO = table.Column<int>(type: "int", nullable: false),
                     DOCUMENTO_NUMERO = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     DOCUMENTO_TIPO = table.Column<int>(type: "int", nullable: false),
-                    DOCUMENTO_DT_EMISSAO = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DOCUMENTO_DT_EMISSAO = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TOTAL_AVALIACAO = table.Column<double>(type: "float", nullable: false),
+                    TOTAL_HORAS_TRABALHADAS = table.Column<int>(type: "int", nullable: false),
+                    IMAGEM_PERFIL_BASE64 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UNIVERSAL_ID_BASE64 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UNIVERSAL_ID = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,8 +41,8 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PESSOA_ID = table.Column<int>(type: "int", nullable: false),
                     DT_ULTIMO_ACESSO = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EMAIL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SENHA = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    EMAIL = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    SENHA = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {

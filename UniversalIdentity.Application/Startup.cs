@@ -65,6 +65,8 @@ namespace UniversalIdentity.Application
             services.AddScoped<IBaseService<Pessoa>, BaseService<Pessoa>>();
             services.AddScoped<IBaseService<Login>, BaseService<Login>>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IUniversalIdentityService, UniversalIdentityService>();
+            services.AddScoped<IQRCodeService, QRCodeService>();
 
             #endregion service
 

@@ -93,6 +93,11 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("GENERO");
 
+                    b.Property<string>("ImagemPerfilBase64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("IMAGEM_PERFIL_BASE64");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -110,6 +115,17 @@ namespace UniversalIdentity.Infra.Data.Migrations
                     b.Property<int>("TotalHorasTrabalhadas")
                         .HasColumnType("int")
                         .HasColumnName("TOTAL_HORAS_TRABALHADAS");
+
+                    b.Property<string>("UniversalId")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)")
+                        .HasColumnName("UNIVERSAL_ID");
+
+                    b.Property<string>("UniversalIdBase64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UNIVERSAL_ID_BASE64");
 
                     b.HasKey("Id");
 

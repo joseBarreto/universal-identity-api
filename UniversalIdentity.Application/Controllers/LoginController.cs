@@ -19,17 +19,26 @@ namespace UniversalIdentity.Application.Controllers
     [Route("[controller]")]
     public class LoginController : BaseController
     {
-        private readonly ILoginService _baseService;
+        private readonly ILoginService _loginService;
+        private readonly IUniversalIdentityService _universalIdentityService;
+        private readonly IQRCodeService _qRCodeService;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Ctr
         /// </summary>
-        /// <param name="baseService"></param>
+        /// <param name="loginService"></param>
+        /// <param name="universalIdentityService"></param>
+        /// <param name="qRCodeService"></param>
         /// <param name="mapper"></param>
-        public LoginController(ILoginService baseService, IMapper mapper)
+        public LoginController(ILoginService loginService,
+            IUniversalIdentityService universalIdentityService,
+            IQRCodeService qRCodeService,
+            IMapper mapper)
         {
-            _baseService = baseService;
+            _loginService = loginService;
+            _universalIdentityService = universalIdentityService;
+            _qRCodeService = qRCodeService;
             _mapper = mapper;
         }
 
@@ -52,7 +61,7 @@ namespace UniversalIdentity.Application.Controllers
             if (login == null)
                 return BaseNotFound();
 
-            if (_baseService.ExistsByEmail(login.Email))
+            if (_loginService.ExistsByEmail(login.Email))
             {
                 return BaseConflict("E-mail já esta em uso.");
             }
@@ -66,7 +75,10 @@ namespace UniversalIdentity.Application.Controllers
                 newLogin.Pessoa.DataAtualizacao =
                 newLogin.DataUltimoAcesso = System.DateTime.Now;
 
-                return Response<int>.Create(_baseService.Add(newLogin).Id);
+                newLogin.Pessoa.UniversalId = _universalIdentityService.GenerateUniversalIdentity();
+                newLogin.Pessoa.UniversalIdBase64 = _qRCodeService.GenerateQRCode(newLogin.Pessoa.UniversalId);
+                
+                return Response<int>.Create(_loginService.Add(newLogin).Id);
             });
         }
 
@@ -90,7 +102,7 @@ namespace UniversalIdentity.Application.Controllers
                 return BaseUnauthorized("Não autorizado", "Usuário ou senha inválidos.");
             }
 
-            var loginResponse = _baseService.GetWithIncludesByEmailAndSenha(login.Email, login.Senha);
+            var loginResponse = _loginService.GetWithIncludesByEmailAndSenha(login.Email, login.Senha);
             if (loginResponse == null)
             {
                 return BaseUnauthorized("Não autorizado", "Usuário ou senha inválidos.");
@@ -98,7 +110,7 @@ namespace UniversalIdentity.Application.Controllers
 
             return Execute(() =>
             {
-                var tokenRespnse = _baseService.GerarTokenJwt(loginResponse);
+                var tokenRespnse = _loginService.GerarTokenJwt(loginResponse);
                 return tokenRespnse;
             });
         }

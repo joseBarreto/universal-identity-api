@@ -10,7 +10,7 @@ using UniversalIdentity.Infra.Data.Context;
 namespace UniversalIdentity.Infra.Data.Migrations
 {
     [DbContext(typeof(UniversalIdentityContext))]
-    [Migration("20211117033557_InitialMigration")]
+    [Migration("20211119004642_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,9 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnName("DT_ULTIMO_ACESSO");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("EMAIL");
 
                     b.Property<int>("PessoaId")
@@ -42,7 +44,9 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnName("PESSOA_ID");
 
                     b.Property<string>("Senha")
-                        .HasColumnType("nvarchar(max)")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("SENHA");
 
                     b.HasKey("Id");
@@ -91,6 +95,11 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("GENERO");
 
+                    b.Property<string>("ImagemPerfilBase64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("IMAGEM_PERFIL_BASE64");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -100,6 +109,25 @@ namespace UniversalIdentity.Infra.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("STATUS");
+
+                    b.Property<double>("TotalAvaliacao")
+                        .HasColumnType("float")
+                        .HasColumnName("TOTAL_AVALIACAO");
+
+                    b.Property<int>("TotalHorasTrabalhadas")
+                        .HasColumnType("int")
+                        .HasColumnName("TOTAL_HORAS_TRABALHADAS");
+
+                    b.Property<string>("UniversalId")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)")
+                        .HasColumnName("UNIVERSAL_ID");
+
+                    b.Property<string>("UniversalIdBase64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UNIVERSAL_ID_BASE64");
 
                     b.HasKey("Id");
 

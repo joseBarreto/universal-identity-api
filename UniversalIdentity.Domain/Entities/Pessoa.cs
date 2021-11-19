@@ -61,6 +61,17 @@ namespace UniversalIdentity.Domain.Entities
         [Range(0, int.MaxValue, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
         public int TotalHorasTrabalhadas { get; set; }
 
+        [Column("IMAGEM_PERFIL_BASE64")]
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        public string ImagemPerfilBase64 { get; set; }
 
+        [Column("UNIVERSAL_ID_BASE64")]
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        public string UniversalIdBase64 { get; set; }
+
+        [Column("UNIVERSAL_ID")]
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [StringLength(maximumLength: 16, MinimumLength = 116, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        public string UniversalId { get; set; }
     }
 }

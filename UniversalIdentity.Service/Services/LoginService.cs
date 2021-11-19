@@ -13,7 +13,7 @@ namespace UniversalIdentity.Service.Services
 {
     public class LoginService : BaseService<Login>, ILoginService
     {
-        private ILoginRepository _localRepository { get; set; }
+        private readonly ILoginRepository _localRepository;
         private readonly JwtSettings _jwtSettings;
 
         public LoginService(ILoginRepository localRepository, IOptions<JwtSettings> jwtSettings) : base(localRepository)
@@ -39,7 +39,7 @@ namespace UniversalIdentity.Service.Services
 
         public TokenResponseModel GerarTokenJwt(Login login)
         {
-            var newDateExpiry = _jwtSettings.NewDateExpiry;
+            var newDateExpiry = JwtSettings.NewDateExpiry;
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
