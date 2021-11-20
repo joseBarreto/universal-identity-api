@@ -7,6 +7,7 @@ namespace UniversalIdentity.Domain.Models
         public int Id { get; set; }
         public string Nome { get; set; }
 
+        public DateTime DataCadastro { get; set; }
         public DateTime DataNascimento { get; set; }
         public Enums.Genero Genero { get; set; }
         public string DocumentoNumero { get; set; }

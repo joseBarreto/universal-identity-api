@@ -20,6 +20,7 @@ namespace UniversalIdentity.Infra.Data.Mapping
 
             CreateMap<Login, PessoaGetResponseModel>()
               .ForMember(dest => dest.Id, map => map.MapFrom(src => src.PessoaId))
+              .ForMember(dest => dest.DataCadastro, map => map.MapFrom(src => src.Pessoa.DataCadastro))
               .ForMember(dest => dest.DataNascimento, map => map.MapFrom(src => src.Pessoa.DataNascimento))
               .ForMember(dest => dest.DocumentoDataEmissao, map => map.MapFrom(src => src.Pessoa.DocumentoDataEmissao))
               .ForMember(dest => dest.DocumentoNumero, map => map.MapFrom(src => src.Pessoa.DocumentoNumero))
