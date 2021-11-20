@@ -79,6 +79,39 @@ namespace UniversalIdentity.Application.Controllers
         }
 
         /// <summary>
+        /// Retorna 400 contendo um Response message
+        /// </summary>
+        /// <param name="message">Mensagem de retorno</param>
+        /// <param name="errors">Lista de erros</param>
+        /// <returns></returns>
+        internal BadRequestObjectResult BaseBadRequest(string message = "Requisição mal formatada", params string[] errors)
+        {
+            var response = new Response<string>
+            {
+                Message = message,
+                Errors = errors
+            };
+            return base.BadRequest(response);
+        }
+
+
+        /// <summary>
+        /// Retorna 401 contendo um Response message
+        /// </summary>
+        /// <param name="message">Mensagem de retorno</param>
+        /// <param name="errors">Lista de erros</param>
+        /// <returns></returns>
+        internal UnauthorizedObjectResult BaseUnauthorized(string message = "Não autorizado", params string[] errors)
+        {
+            var response = new Response<string>
+            {
+                Message = message,
+                Errors = errors
+            };
+            return base.Unauthorized(response);
+        }
+
+        /// <summary>
         /// Retorna 404 contendo um Response message
         /// </summary>
         /// <param name="message">Mensagem de retorno</param>
@@ -111,22 +144,6 @@ namespace UniversalIdentity.Application.Controllers
         }
 
         /// <summary>
-        /// Retorna 401 contendo um Response message
-        /// </summary>
-        /// <param name="message">Mensagem de retorno</param>
-        /// <param name="errors">Lista de erros</param>
-        /// <returns></returns>
-        internal UnauthorizedObjectResult BaseUnauthorized(string message = "Não autorizado", params string[] errors)
-        {
-            var response = new Response<string>
-            {
-                Message = message,
-                Errors = errors
-            };
-            return base.Unauthorized(response);
-        }
-
-        /// <summary>
         /// Retorna 500 contendo um Response message
         /// </summary>
         /// <param name="message">Mensagem de retorno</param>
@@ -140,6 +157,20 @@ namespace UniversalIdentity.Application.Controllers
                 Errors = errors
             };
             return StatusCode((int)HttpStatusCode.InternalServerError, response);
+        }
+
+        /// <summary>
+        /// Retorna um array contendo os erros da ModelState
+        /// </summary>
+        /// <returns></returns>
+        internal string[] GetModelStateErros()
+        {
+            var message = ModelState.Values
+                   .SelectMany(v => v.Errors)
+                   .Select(e => e.ErrorMessage)
+                   .ToArray();
+
+            return message;
         }
     }
 }

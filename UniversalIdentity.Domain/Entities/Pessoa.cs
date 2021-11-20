@@ -11,7 +11,7 @@ namespace UniversalIdentity.Domain.Entities
         public bool Status { get; set; }
 
         [Column("DT_CADASTRO")]
-        public DateTime? DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; }
 
         [Column("DT_ATUALIZACAO")]
         public DateTime? DataAtualizacao { get; set; }
@@ -47,7 +47,7 @@ namespace UniversalIdentity.Domain.Entities
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
         [DataType(DataType.Date)]
         [Display(Name = "Data de emissão do documento")]
-        public DateTime? DocumentoDataEmissao { get; set; }
+        public DateTime DocumentoDataEmissao { get; set; }
 
         [Column("TOTAL_AVALIACAO")]
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
@@ -63,15 +63,17 @@ namespace UniversalIdentity.Domain.Entities
 
         [Column("IMAGEM_PERFIL_BASE64")]
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [MinLength(1)]
         public string ImagemPerfilBase64 { get; set; }
 
         [Column("UNIVERSAL_ID_BASE64")]
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [MinLength(1)]
         public string UniversalIdBase64 { get; set; }
 
         [Column("UNIVERSAL_ID")]
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [StringLength(maximumLength: 16, MinimumLength = 116, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        [StringLength(maximumLength: 16, MinimumLength = 16, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
         public string UniversalId { get; set; }
     }
 }

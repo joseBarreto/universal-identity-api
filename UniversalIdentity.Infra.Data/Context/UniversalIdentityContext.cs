@@ -7,6 +7,7 @@ namespace UniversalIdentity.Infra.Data.Context
     {
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Login> Login { get; set; }
+        public DbSet<Atividade> Atividade { get; set; }
 
         public UniversalIdentityContext(DbContextOptions<UniversalIdentityContext> options = null) : base(options)
         {

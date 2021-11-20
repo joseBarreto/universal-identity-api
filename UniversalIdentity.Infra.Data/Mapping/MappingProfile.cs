@@ -8,6 +8,7 @@ namespace UniversalIdentity.Infra.Data.Mapping
     {
         public MappingProfile()
         {
+            #region login
             CreateMap<Login, LoginCreateRequestModel>()
                .ForMember(dest => dest.DataNascimento, map => map.MapFrom(src => src.Pessoa.DataNascimento))
                .ForMember(dest => dest.DocumentoDataEmissao, map => map.MapFrom(src => src.Pessoa.DocumentoDataEmissao))
@@ -18,6 +19,7 @@ namespace UniversalIdentity.Infra.Data.Mapping
                .ForMember(dest => dest.ImagemPerfilBase64, map => map.MapFrom(src => src.Pessoa.ImagemPerfilBase64));
 
             CreateMap<Login, PessoaGetResponseModel>()
+              .ForMember(dest => dest.Id, map => map.MapFrom(src => src.PessoaId))
               .ForMember(dest => dest.DataNascimento, map => map.MapFrom(src => src.Pessoa.DataNascimento))
               .ForMember(dest => dest.DocumentoDataEmissao, map => map.MapFrom(src => src.Pessoa.DocumentoDataEmissao))
               .ForMember(dest => dest.DocumentoNumero, map => map.MapFrom(src => src.Pessoa.DocumentoNumero))
@@ -34,6 +36,17 @@ namespace UniversalIdentity.Infra.Data.Mapping
 
             CreateMap<LoginCreateRequestModel, Login>()
                 .ForMember(dest => dest.Pessoa, map => map.MapFrom(src => src));
+
+            #endregion login
+
+            #region atividade
+
+            CreateMap<Atividade, AtividadeCreateRequestModel>();
+            CreateMap<AtividadeCreateRequestModel, Atividade>();
+
+            CreateMap<Atividade, AtividadeGetResponseModel>()
+               .ForMember(dest => dest.AutorNome, map => map.MapFrom(src => src.Autor.Nome));
+            #endregion
         }
     }
 }

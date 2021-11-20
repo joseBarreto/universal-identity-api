@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UniversalIdentity.Infra.Data.Migrations
 {
@@ -14,7 +14,7 @@ namespace UniversalIdentity.Infra.Data.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     STATUS = table.Column<bool>(type: "bit", nullable: false),
-                    DT_CADASTRO = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DT_CADASTRO = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DT_ATUALIZACAO = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NOME = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     DT_NASCIMENTO = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -31,6 +31,39 @@ namespace UniversalIdentity.Infra.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_T_PESSOA", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "T_ATIVIDADE",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DT_CADASTRO = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TITULO = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    LOCAL = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    DESCRICAO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OBSERVACAO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HORAS_TRABALHADAS = table.Column<int>(type: "int", nullable: false),
+                    AVALIACAO = table.Column<double>(type: "float", nullable: false),
+                    PESSOA_ID = table.Column<int>(type: "int", nullable: false),
+                    AUTOR_ID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_T_ATIVIDADE", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_T_ATIVIDADE_T_PESSOA_AUTOR_ID",
+                        column: x => x.AUTOR_ID,
+                        principalTable: "T_PESSOA",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_T_ATIVIDADE_T_PESSOA_PESSOA_ID",
+                        column: x => x.PESSOA_ID,
+                        principalTable: "T_PESSOA",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,6 +89,16 @@ namespace UniversalIdentity.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_T_ATIVIDADE_AUTOR_ID",
+                table: "T_ATIVIDADE",
+                column: "AUTOR_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_T_ATIVIDADE_PESSOA_ID",
+                table: "T_ATIVIDADE",
+                column: "PESSOA_ID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_T_LOGIN_PESSOA_ID",
                 table: "T_LOGIN",
                 column: "PESSOA_ID");
@@ -63,6 +106,9 @@ namespace UniversalIdentity.Infra.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "T_ATIVIDADE");
+
             migrationBuilder.DropTable(
                 name: "T_LOGIN");
 

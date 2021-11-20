@@ -52,14 +52,16 @@ namespace UniversalIdentity.Application.Controllers
 #endif
         [AllowAnonymous]
         [SwaggerResponse(200, "Ok", typeof(Response<int>))]
-        [SwaggerResponse(404, "Bad Request", typeof(Response<string>))]
+        [SwaggerResponse(400, "Bad Request", typeof(Response<string>))]
         [SwaggerResponse(409, "Conflict", typeof(Response<string>))]
         [SwaggerResponse(500, "Internal Server Error", typeof(Response<string>))]
         [HttpPost("Create")]
         public IActionResult Create([FromBody] LoginCreateRequestModel login)
         {
-            if (login == null)
-                return BaseNotFound();
+            if (!ModelState.IsValid)
+            {
+                return BaseBadRequest("Requisição mal formatada", GetModelStateErros());
+            }
 
             if (_loginService.ExistsByEmail(login.Email))
             {
@@ -71,13 +73,14 @@ namespace UniversalIdentity.Application.Controllers
                 var newLogin = _mapper.Map<Login>(login);
                 newLogin.Pessoa.Status = true;
 
-                newLogin.Pessoa.DataCadastro =
-                newLogin.Pessoa.DataAtualizacao =
-                newLogin.DataUltimoAcesso = System.DateTime.Now;
+                var dtNow = System.DateTime.Now;
+                newLogin.Pessoa.DataCadastro = dtNow;
+                newLogin.Pessoa.DataAtualizacao = dtNow;
+                newLogin.DataUltimoAcesso = dtNow;
 
                 newLogin.Pessoa.UniversalId = _universalIdentityService.GenerateUniversalIdentity();
                 newLogin.Pessoa.UniversalIdBase64 = _qRCodeService.GenerateQRCode(newLogin.Pessoa.UniversalId);
-                
+
                 return Response<int>.Create(_loginService.Add(newLogin).Id);
             });
         }
@@ -94,12 +97,10 @@ namespace UniversalIdentity.Application.Controllers
         [SwaggerResponse(500, "Internal Server Error", typeof(Response<string>))]
         public IActionResult Login([FromBody] LoginPostRequestModel login)
         {
-            if (login == null ||
-                string.IsNullOrEmpty(login.Email) ||
-                string.IsNullOrEmpty(login.Senha))
-            {
 
-                return BaseUnauthorized("Não autorizado", "Usuário ou senha inválidos.");
+            if (!ModelState.IsValid)
+            {
+                return BaseBadRequest("Requisição mal formatada", GetModelStateErros());
             }
 
             var loginResponse = _loginService.GetWithIncludesByEmailAndSenha(login.Email, login.Senha);

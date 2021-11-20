@@ -4,6 +4,32 @@
         <name>UniversalIdentity.Application</name>
     </assembly>
     <members>
+        <member name="T:UniversalIdentity.Application.Controllers.AtividadeController">
+            <summary>
+            Gerencia os dados de atividades
+            </summary>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.AtividadeController.#ctor(UniversalIdentity.Domain.Interfaces.IAtividadeService,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="atividadeService"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.AtividadeController.Create(UniversalIdentity.Domain.Models.AtividadeCreateRequestModel)">
+            <summary>
+            Insere um novo registro de atividade para uma Pessoa especifica
+            </summary>
+            <param name="atividade">Modelo para inserir</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.AtividadeController.Get(UniversalIdentity.Domain.Filter.PaginationFilter)">
+            <summary>
+            Retorna uma lista de registros
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
         <member name="T:UniversalIdentity.Application.Controllers.BaseController">
             <summary>
             Controller base
@@ -18,6 +44,22 @@
             Status code 200 em caso de sucesso
             Status code 500 em caso de falha
             </returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseBadRequest(System.String,System.String[])">
+            <summary>
+            Retorna 400 contendo um Response message
+            </summary>
+            <param name="message">Mensagem de retorno</param>
+            <param name="errors">Lista de erros</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseUnauthorized(System.String,System.String[])">
+            <summary>
+            Retorna 401 contendo um Response message
+            </summary>
+            <param name="message">Mensagem de retorno</param>
+            <param name="errors">Lista de erros</param>
+            <returns></returns>
         </member>
         <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseNotFound(System.String,System.String[])">
             <summary>
@@ -35,20 +77,18 @@
             <param name="errors">Lista de erros</param>
             <returns></returns>        
         </member>
-        <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseUnauthorized(System.String,System.String[])">
-            <summary>
-            Retorna 401 contendo um Response message
-            </summary>
-            <param name="message">Mensagem de retorno</param>
-            <param name="errors">Lista de erros</param>
-            <returns></returns>
-        </member>
         <member name="M:UniversalIdentity.Application.Controllers.BaseController.BaseInternalServerError(System.String,System.String[])">
             <summary>
             Retorna 500 contendo um Response message
             </summary>
             <param name="message">Mensagem de retorno</param>
             <param name="errors">Lista de erros</param>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.BaseController.GetModelStateErros">
+            <summary>
+            Retorna um array contendo os erros da ModelState
+            </summary>
             <returns></returns>
         </member>
         <member name="T:UniversalIdentity.Application.Controllers.HomeController">

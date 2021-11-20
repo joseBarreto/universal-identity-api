@@ -5,48 +5,42 @@ namespace UniversalIdentity.Domain.Models
 {
     public class LoginCreateRequestModel
     {
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [StringLength(maximumLength: 200, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        [StringLength(maximumLength: 200, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}.")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [DataType(DataType.Date)]
         [Display(Name = "Data de nascimento")]
-        public DateTime DataNascimento { get; set; }
-
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [DataType(DataType.Date, ErrorMessage = "O campo '{0}' é obrigatório.")]
+        public DateTime? DataNascimento { get; set; }
+
         [Display(Name = "Gênero")]
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
         public Enums.Genero Genero { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
         [Display(Name = "Número do documento")]
-        [StringLength(maximumLength: 200, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        [StringLength(maximumLength: 200, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}.")]
         public string DocumentoNumero { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
         [Display(Name = "Tipo do documento")]
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
         public Enums.DocumentoTipo DocumentoTipo { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [DataType(DataType.Date)]
         [Display(Name = "Data de emissão do documento")]
+        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [DataType(DataType.Date, ErrorMessage = "O campo '{0}' é obrigatório.")]
         public DateTime? DocumentoDataEmissao { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [Display(Name = "E-mail")]
-        [StringLength(maximumLength: 100, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        [EmailAddress(ErrorMessage = "O campo '{0}' não é um endereço de e-mail válido.")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [Display(Name = "Senha")]
-        [StringLength(maximumLength: 20, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        [StringLength(maximumLength: 20, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}.")]
+        [DataType(DataType.Password)]
         public string Senha { get; set; }
 
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
         [Display(Name = "Imagem do perfil em base64")]
-        [MinLength(1)]
+        [MinLength(1, ErrorMessage = "O campo '{0}' não pode ser nulo ou vazio.")]
         public string ImagemPerfilBase64 { get; set; }
-
 
     }
 }

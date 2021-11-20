@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,11 @@ namespace UniversalIdentity.Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //Desativar a validação automática do ModelStates
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             services
                 .AddControllers()
@@ -56,7 +62,10 @@ namespace UniversalIdentity.Application
 
             services.AddScoped<IBaseRepository<Pessoa>, BaseRepository<Pessoa>>();
             services.AddScoped<IBaseRepository<Login>, BaseRepository<Login>>();
+            services.AddScoped<IBaseRepository<Atividade>, BaseRepository<Atividade>>();
             services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IAtividadeRepository, AtividadeRepository>();
+            services.AddScoped<IPessoaRepository, PessoaRepository>();
 
             #endregion repository
 
@@ -64,7 +73,9 @@ namespace UniversalIdentity.Application
 
             services.AddScoped<IBaseService<Pessoa>, BaseService<Pessoa>>();
             services.AddScoped<IBaseService<Login>, BaseService<Login>>();
+            services.AddScoped<IBaseService<Atividade>, BaseService<Atividade>>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IAtividadeService, AtividadeService>();
             services.AddScoped<IUniversalIdentityService, UniversalIdentityService>();
             services.AddScoped<IQRCodeService, QRCodeService>();
 

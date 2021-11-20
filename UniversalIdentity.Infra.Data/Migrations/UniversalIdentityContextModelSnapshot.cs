@@ -19,6 +19,65 @@ namespace UniversalIdentity.Infra.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("UniversalIdentity.Domain.Entities.Atividade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AutorId")
+                        .HasColumnType("int")
+                        .HasColumnName("AUTOR_ID");
+
+                    b.Property<double>("Avaliacao")
+                        .HasColumnType("float")
+                        .HasColumnName("AVALIACAO");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DT_CADASTRO");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("DESCRICAO");
+
+                    b.Property<int>("HorasTrabalhadas")
+                        .HasColumnType("int")
+                        .HasColumnName("HORAS_TRABALHADAS");
+
+                    b.Property<string>("Local")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("LOCAL");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("OBSERVACAO");
+
+                    b.Property<int>("PessoaId")
+                        .HasColumnType("int")
+                        .HasColumnName("PESSOA_ID");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("TITULO");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AutorId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("T_ATIVIDADE");
+                });
+
             modelBuilder.Entity("UniversalIdentity.Domain.Entities.Login", b =>
                 {
                     b.Property<int>("Id")
@@ -66,7 +125,7 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DT_ATUALIZACAO");
 
-                    b.Property<DateTime?>("DataCadastro")
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2")
                         .HasColumnName("DT_CADASTRO");
 
@@ -74,8 +133,7 @@ namespace UniversalIdentity.Infra.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DT_NASCIMENTO");
 
-                    b.Property<DateTime?>("DocumentoDataEmissao")
-                        .IsRequired()
+                    b.Property<DateTime>("DocumentoDataEmissao")
                         .HasColumnType("datetime2")
                         .HasColumnName("DOCUMENTO_DT_EMISSAO");
 
@@ -130,6 +188,23 @@ namespace UniversalIdentity.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("T_PESSOA");
+                });
+
+            modelBuilder.Entity("UniversalIdentity.Domain.Entities.Atividade", b =>
+                {
+                    b.HasOne("UniversalIdentity.Domain.Entities.Pessoa", "Autor")
+                        .WithMany()
+                        .HasForeignKey("AutorId");
+
+                    b.HasOne("UniversalIdentity.Domain.Entities.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autor");
+
+                    b.Navigation("Pessoa");
                 });
 
             modelBuilder.Entity("UniversalIdentity.Domain.Entities.Login", b =>
