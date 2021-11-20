@@ -24,16 +24,30 @@ using UniversalIdentity.Service.Services;
 
 namespace UniversalIdentity.Application
 {
-#pragma warning disable CS1591 // O comentário XML ausente não foi encontrado para o tipo ou membro visível publicamente
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             //Desativar a validação automática do ModelStates
@@ -158,6 +172,11 @@ namespace UniversalIdentity.Application
             #endregion swagger
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -181,5 +200,4 @@ namespace UniversalIdentity.Application
             });
         }
     }
-#pragma warning restore CS1591 // O comentário XML ausente não foi encontrado para o tipo ou membro visível publicamente
 }

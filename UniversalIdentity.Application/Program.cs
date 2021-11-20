@@ -3,15 +3,25 @@ using Microsoft.Extensions.Hosting;
 
 namespace UniversalIdentity.Application
 {
-#pragma warning disable CS1591 // O comentário XML ausente não foi encontrado para o tipo ou membro visível publicamente
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
@@ -19,5 +29,4 @@ namespace UniversalIdentity.Application
                     webBuilder.UseStartup<Startup>();
                 });
     }
-#pragma warning restore CS1591 // O comentário XML ausente não foi encontrado para o tipo ou membro visível publicamente
 }
