@@ -77,8 +77,8 @@ namespace UniversalIdentity.Application.Controllers
         [SwaggerResponse(200, "Ok", typeof(PagedResponse<IList<AtividadeGetResponseModel>>))]
         [SwaggerResponse(400, "Bad Request", typeof(Response<string>))]
         [SwaggerResponse(500, "Internal Server Error", typeof(Response<string>))]
-        [HttpGet]
-        public IActionResult Get([FromQuery] PaginationFilter filter)
+        [HttpGet("GetAll")]
+        public IActionResult GetAll([FromQuery] PaginationFilter filter)
         {
             if (!ModelState.IsValid)
             {
