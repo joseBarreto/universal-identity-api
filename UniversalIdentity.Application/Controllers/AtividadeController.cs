@@ -68,6 +68,28 @@ namespace UniversalIdentity.Application.Controllers
             });
         }
 
+        /// <summary>
+        /// Retorna uma atividade por id
+        /// </summary>
+        /// <returns></returns>
+        [SwaggerResponse(200, "Ok", typeof(Response<AtividadeGetResponseModel>))]
+        [SwaggerResponse(401, "Unauthorized", typeof(string))]
+        [SwaggerResponse(404, "Bad Request", typeof(Response<string>))]
+        [SwaggerResponse(500, "Internal Server Error", typeof(Response<string>))]
+        [HttpGet()]
+        public IActionResult Get(int id)
+        {
+            if (id <= 0)
+                return BaseNotFound();
+
+            return Execute(() =>
+            {
+                var atividade = _atividadeService.GetById(id);
+                var atividadeModel = _mapper.Map<AtividadeGetResponseModel>(atividade);
+                return Response<AtividadeGetResponseModel>.Create(atividadeModel);
+            });
+        }
+
 
         /// <summary>
         /// Retorna uma lista de registros

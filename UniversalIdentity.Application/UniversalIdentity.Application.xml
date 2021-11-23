@@ -23,7 +23,13 @@
             <param name="atividade">Modelo para inserir</param>
             <returns></returns>
         </member>
-        <member name="M:UniversalIdentity.Application.Controllers.AtividadeController.Get(UniversalIdentity.Domain.Filter.PaginationFilter)">
+        <member name="M:UniversalIdentity.Application.Controllers.AtividadeController.Get(System.Int32)">
+            <summary>
+            Retorna uma atividade por id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.AtividadeController.GetAll(UniversalIdentity.Domain.Filter.PaginationFilter)">
             <summary>
             Retorna uma lista de registros
             </summary>
