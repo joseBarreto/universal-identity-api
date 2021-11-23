@@ -48,6 +48,10 @@ namespace UniversalIdentity.Infra.Data.Mapping
             CreateMap<Atividade, AtividadeGetResponseModel>()
                .ForMember(dest => dest.AutorNome, map => map.MapFrom(src => src.Autor.Nome));
             #endregion
+
+            #region pessoa
+            CreateMap<Pessoa, PessoaGetResponseModel>();
+            #endregion
         }
     }
 }

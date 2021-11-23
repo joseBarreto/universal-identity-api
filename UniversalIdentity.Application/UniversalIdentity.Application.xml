@@ -141,17 +141,26 @@
             Controller para gerencia as pessoas
             </summary>
         </member>
-        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.#ctor(UniversalIdentity.Domain.Interfaces.ILoginService,AutoMapper.IMapper)">
+        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.#ctor(UniversalIdentity.Domain.Interfaces.ILoginService,UniversalIdentity.Domain.Interfaces.IPessoaService,AutoMapper.IMapper)">
             <summary>
             Ctr
             </summary>
             <param name="baseService"></param>
+            <param name="pessoaService"></param>
              <param name="mapper"></param>
         </member>
         <member name="M:UniversalIdentity.Application.Controllers.PessoaController.Get">
             <summary>
             Retorna os dados do usuário autenticado
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UniversalIdentity.Application.Controllers.PessoaController.GetAll(UniversalIdentity.Domain.Filter.PaginationFilterWithSearchTerm)">
+            <summary>
+            Retorna uma lista de registros
+            O SearchTerm é pesquisado dentro do Nome, Documento e UniqueId
+            </summary>
+            <param name="filter"></param>
             <returns></returns>
         </member>
         <member name="T:UniversalIdentity.Application.Program">

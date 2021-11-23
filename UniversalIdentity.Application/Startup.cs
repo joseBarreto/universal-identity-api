@@ -90,6 +90,7 @@ namespace UniversalIdentity.Application
             services.AddScoped<IBaseService<Atividade>, BaseService<Atividade>>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAtividadeService, AtividadeService>();
+            services.AddScoped<IPessoaService, PessoaService>();
             services.AddScoped<IUniversalIdentityService, UniversalIdentityService>();
             services.AddScoped<IQRCodeService, QRCodeService>();
 

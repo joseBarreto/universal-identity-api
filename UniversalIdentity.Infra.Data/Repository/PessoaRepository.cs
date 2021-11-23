@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniversalIdentity.Domain.Entities;
 using UniversalIdentity.Domain.Interfaces;
@@ -10,6 +11,30 @@ namespace UniversalIdentity.Infra.Data.Repository
     {
         public PessoaRepository(UniversalIdentityContext context) : base(context)
         {
+        }
+
+        public IList<Pessoa> GetByTermWithIncludes(string term, int excludePessoaId, int pageNumber, int pageSize, out int totalRecords)
+        {
+            totalRecords = _context.Set<Pessoa>().Count();
+            term = term?.ToLowerInvariant();
+
+            var pessoas = _context.Pessoa
+                                    .Where(x =>
+                                                x.Id != excludePessoaId &&
+                                                (
+                                                    string.IsNullOrEmpty(term) ||
+                                                    (
+                                                        x.Nome.ToLower().Contains(term) ||
+                                                        x.DocumentoNumero.ToLower().Contains(term) ||
+                                                        x.UniversalId.ToLower().Contains(term)
+                                                    )
+                                                )
+                                            )
+                                    .OrderBy(x => x.Id)
+                                    .Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .ToList();
+            return pessoas;
         }
 
         public void RefreshTotalAvaliacaoAndHorasTrabalahdas(int pessoaId)
