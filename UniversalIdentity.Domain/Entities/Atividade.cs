@@ -27,7 +27,6 @@ namespace UniversalIdentity.Domain.Entities
 
         [Column("OBSERVACAO")]
         [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
-        [MinLength(1)]
         public string Observacao { get; set; }
 
         [Column("HORAS_TRABALHADAS")]
