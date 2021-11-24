@@ -55,7 +55,6 @@ namespace UniversalIdentity.Application.Controllers
             if (atividade?.PessoaId == autorId)
             {
                 return BaseConflict("Não é permitido adicionar uma atividade para si próprio.");
-
             }
 
             return Execute(() =>
