@@ -80,6 +80,11 @@ namespace UniversalIdentity.Application.Controllers
 
             return Execute(() =>
             {
+                if (string.IsNullOrEmpty(filter.SearchTerm))
+                {
+                    return CreatePagedReponse(new List<PessoaGetResponseModel>(), filter, 0);
+                }
+
                 var pessoas = _pessoaService.GetByTermWithIncludes(filter.SearchTerm, GetCurrentUserId(), filter.PageNumber, filter.PageSize, out int totalRecords);
                 var pessoasModels = _mapper.Map<IList<Pessoa>, IList<PessoaGetResponseModel>>(pessoas);
                 return CreatePagedReponse(pessoasModels, filter, totalRecords);
