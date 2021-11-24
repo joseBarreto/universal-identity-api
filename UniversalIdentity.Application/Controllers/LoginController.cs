@@ -20,6 +20,7 @@ namespace UniversalIdentity.Application.Controllers
     public class LoginController : BaseController
     {
         private readonly ILoginService _loginService;
+        private readonly IPessoaService _pessoaService;
         private readonly IUniversalIdentityService _universalIdentityService;
         private readonly IQRCodeService _qRCodeService;
         private readonly IMapper _mapper;
@@ -28,15 +29,18 @@ namespace UniversalIdentity.Application.Controllers
         /// Ctr
         /// </summary>
         /// <param name="loginService"></param>
+        /// <param name="pessoaService"></param>
         /// <param name="universalIdentityService"></param>
         /// <param name="qRCodeService"></param>
         /// <param name="mapper"></param>
         public LoginController(ILoginService loginService,
+            IPessoaService pessoaService,
             IUniversalIdentityService universalIdentityService,
             IQRCodeService qRCodeService,
             IMapper mapper)
         {
             _loginService = loginService;
+            _pessoaService = pessoaService;
             _universalIdentityService = universalIdentityService;
             _qRCodeService = qRCodeService;
             _mapper = mapper;
@@ -63,9 +67,9 @@ namespace UniversalIdentity.Application.Controllers
                 return BaseBadRequest("Requisição mal formatada", GetModelStateErros());
             }
 
-            if (_loginService.ExistsByEmail(login.Email))
+            if (_pessoaService.ExistsByDocumentoNumero(login.DocumentoNumero))
             {
-                return BaseConflict("E-mail já esta em uso.");
+                return BaseConflict("Documento já esta em uso.");
             }
 
             return Execute(() =>
@@ -103,7 +107,7 @@ namespace UniversalIdentity.Application.Controllers
                 return BaseBadRequest("Requisição mal formatada", GetModelStateErros());
             }
 
-            var loginResponse = _loginService.GetWithIncludesByEmailAndSenha(login.Email, login.Senha);
+            var loginResponse = _loginService.GetWithIncludesByDocumentoNumeroAndSenha(login.DocumentoNumero, login.Senha);
             if (loginResponse == null)
             {
                 return BaseUnauthorized("Não autorizado", "Usuário ou senha inválidos.");

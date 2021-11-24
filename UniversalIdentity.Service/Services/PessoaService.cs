@@ -13,6 +13,11 @@ namespace UniversalIdentity.Service.Services
             _pessoaRepository = pessoaRepository;
         }
 
+        public bool ExistsByDocumentoNumero(string documentoNumero)
+        {
+            return _pessoaRepository.ExistsByDocumentoNumero(documentoNumero);
+        }
+
         public IList<Pessoa> GetByTermWithIncludes(string term, int excludePessoaId, int pageNumber, int pageSize, out int totalRecords)
         {
             return _pessoaRepository.GetByTermWithIncludes(term, excludePessoaId, pageNumber, pageSize, out totalRecords);

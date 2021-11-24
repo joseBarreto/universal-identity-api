@@ -4,7 +4,7 @@ namespace UniversalIdentity.Domain.Interfaces
 {
     public interface ILoginRepository : IBaseRepository<Login>
     {
-        Login GetWithIncludesByEmailAndSenha(string email, string senha);
+        Login GetWithIncludesByDocumentoNumeroAndSenha(string documentoNumero, string senha);
 
         Login GetWithIncludesByUsuarioId(int usuarioId);
 

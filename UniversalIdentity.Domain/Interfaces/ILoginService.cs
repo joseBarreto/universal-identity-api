@@ -5,7 +5,7 @@ namespace UniversalIdentity.Domain.Interfaces
 {
     public interface ILoginService : IBaseService<Login>
     {
-        Login GetWithIncludesByEmailAndSenha(string email, string senha);
+        Login GetWithIncludesByDocumentoNumeroAndSenha(string documentoNumero, string senha);
 
         Login GetWithIncludesByUsuarioId(int usuarioId);
 

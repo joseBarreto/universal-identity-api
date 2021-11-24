@@ -14,10 +14,9 @@ namespace UniversalIdentity.Domain.Entities
         [Column("DT_ULTIMO_ACESSO")]
         public DateTime DataUltimoAcesso { get; set; }
 
-        [Column("EMAIL")]
-        [Required(ErrorMessage = "O campo '{0}' é obrigatório.")]
+        [Column("EMAIL")]        
         [Display(Name = "E-mail")]
-        [StringLength(maximumLength: 100, MinimumLength = 1, ErrorMessage = "O valor para {0} deve está entre {1} e {2}")]
+        [StringLength(maximumLength: 100, ErrorMessage = "O valor para {0} deve ter no máximo {1}")]
         public string Email { get; set; }
 
         [Column("SENHA")]

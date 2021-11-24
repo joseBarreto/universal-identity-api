@@ -12,14 +12,14 @@ namespace UniversalIdentity.Infra.Data.Repository
         {
         }
 
-        public Login GetWithIncludesByEmailAndSenha(string email, string senha) => _context.Login
+        public Login GetWithIncludesByDocumentoNumeroAndSenha(string documentoNumero, string senha) => _context.Set<Login>()
                                                                       .Include(l => l.Pessoa)
-                                                                      .FirstOrDefault(x => x.Email == email && x.Senha == senha);
+                                                                      .FirstOrDefault(x => x.Pessoa.DocumentoNumero == documentoNumero && x.Senha == senha);
 
-        public Login GetWithIncludesByUsuarioId(int usuarioId) => _context.Login
+        public Login GetWithIncludesByUsuarioId(int usuarioId) => _context.Set<Login>()
                                                                       .Include(l => l.Pessoa)
                                                                       .FirstOrDefault(x => x.PessoaId == usuarioId);
 
-        public bool ExistsByEmail(string email) => _context.Login.Any(x => x.Email.ToLower() == email.ToLower());
+        public bool ExistsByEmail(string email) => _context.Set<Login>().Any(x => !string.IsNullOrEmpty(x.Email) && x.Email.ToLower() == email.ToLower());
     }
 }

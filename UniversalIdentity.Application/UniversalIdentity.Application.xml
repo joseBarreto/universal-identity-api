@@ -113,11 +113,12 @@
             Gerencia os dados de login, como geração de Token
             </summary>
         </member>
-        <member name="M:UniversalIdentity.Application.Controllers.LoginController.#ctor(UniversalIdentity.Domain.Interfaces.ILoginService,UniversalIdentity.Domain.Interfaces.IUniversalIdentityService,UniversalIdentity.Domain.Interfaces.IQRCodeService,AutoMapper.IMapper)">
+        <member name="M:UniversalIdentity.Application.Controllers.LoginController.#ctor(UniversalIdentity.Domain.Interfaces.ILoginService,UniversalIdentity.Domain.Interfaces.IPessoaService,UniversalIdentity.Domain.Interfaces.IUniversalIdentityService,UniversalIdentity.Domain.Interfaces.IQRCodeService,AutoMapper.IMapper)">
             <summary>
             Ctr
             </summary>
             <param name="loginService"></param>
+            <param name="pessoaService"></param>
             <param name="universalIdentityService"></param>
             <param name="qRCodeService"></param>
             <param name="mapper"></param>

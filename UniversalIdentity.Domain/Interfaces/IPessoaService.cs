@@ -7,5 +7,8 @@ namespace UniversalIdentity.Domain.Interfaces
     {
         IList<Pessoa> GetByTermWithIncludes(string term, int excludePessoaId, int pageNumber, int pageSize, out int totalRecords);
 
+        bool ExistsByDocumentoNumero(string documentoNumero);
+
+
     }
 }

@@ -22,9 +22,9 @@ namespace UniversalIdentity.Service.Services
             _jwtSettings = jwtSettings.Value;
         }
 
-        public Login GetWithIncludesByEmailAndSenha(string email, string senha)
+        public Login GetWithIncludesByDocumentoNumeroAndSenha(string documentoNumero, string senha)
         {
-            return _localRepository.GetWithIncludesByEmailAndSenha(email, senha);
+            return _localRepository.GetWithIncludesByDocumentoNumeroAndSenha(documentoNumero, senha);
         }
 
         public Login GetWithIncludesByUsuarioId(int usuarioId)
@@ -45,7 +45,7 @@ namespace UniversalIdentity.Service.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, login.Pessoa.Nome),
-                new Claim(ClaimTypes.Email,login.Email),
+                new Claim(ClaimTypes.Email,login.Email ?? ""),
                 new Claim(ClaimTypes.NameIdentifier, login.PessoaId.ToString()),
                 new Claim(ClaimTypes.Role, "User")
             };

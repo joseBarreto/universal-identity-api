@@ -13,6 +13,8 @@ namespace UniversalIdentity.Infra.Data.Repository
         {
         }
 
+        public bool ExistsByDocumentoNumero(string documentoNumero) => _context.Set<Pessoa>().Any(x => x.DocumentoNumero.ToLower() == documentoNumero.ToLower());
+       
         public IList<Pessoa> GetByTermWithIncludes(string term, int excludePessoaId, int pageNumber, int pageSize, out int totalRecords)
         {
             totalRecords = _context.Set<Pessoa>().Count();
